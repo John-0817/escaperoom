@@ -99,6 +99,7 @@ export default function RenderComponent(props: RenderComponentProps) {
         layout='fill'
         objectFit='cover'
         alt='Background'
+        priority
       />
 
       {/* Fake Item: Pillow */}
