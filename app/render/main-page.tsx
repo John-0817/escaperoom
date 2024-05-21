@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import RenderComponent from './component'
-import RenderModal from '../ui/modal/modal';
+import RenderModal from './modal';
 
 export default function RenderMainPage(props: RenderMainPageProps) {
   const { fakeItems, initialRealItems } = props;
