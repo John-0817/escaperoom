@@ -1,0 +1,75 @@
+export const FakeItems = {
+  pillow: {
+    src: '/fake-items/pillow.png',
+    width: 66,
+    height: 66,
+    alt: 'pillow',
+    description: 'This is just a regular pillow.'
+  },
+  chefKnife: {
+    src: '/fake-items/chef-knife.png',
+    width: 44,
+    height: 44,
+    alt: 'chef-knife',
+    description: 'This is just a chef knife.'
+  }
+}
+
+export const RealItems: RealItem[] = [
+  {
+    id: 0,
+    name: 'blueberry', 
+    scr: '/real-items/blueberry.png', 
+    width: 28, 
+    height: 28, 
+    alt: 'blueberry(first hint)',
+    isVisible: true,
+    isCorrect: false,
+    description: 'Enter the correct answer (ans: 001)',
+    conditionalDescription: 'Find the next fruit.',
+    type: 'quiz',
+    ans: '001',
+  },
+  {
+    id: 1,
+    name: 'cherry', 
+    scr: '/real-items/cherry.png', 
+    width: 28, 
+    height: 28, 
+    alt: 'cherry(second hint)',
+    isVisible: false,
+    isCorrect: false,
+    description: 'Great work! Find the last fruit.',
+    conditionalDescription: 'Find the last fruit.',
+    type: 'click',
+    ans: '',
+  },
+  {
+    id: 2,
+    name: 'raspberry', 
+    scr: '/real-items/raspberry.png', 
+    width: 28, 
+    height: 28, 
+    alt: 'raspberry(third hint)',
+    isVisible: false,
+    isCorrect: false,
+    description: 'Enter the correct answer (ans: 001)',
+    conditionalDescription: 'Time to leave the house.',
+    type: 'prerequisite',
+    ans: '',
+  },
+  {
+    id: 3,
+    name: 'transportation', 
+    scr: '/real-items/transportation.png', 
+    width: 44, 
+    height: 44, 
+    alt: 'transportation(first hint)',
+    isVisible: false,
+    isCorrect: false,
+    description: 'Enter the correct answer (ans: 001)',
+    conditionalDescription: 'Complete!',
+    type: 'click',
+    ans: '',
+  },
+]
