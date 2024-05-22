@@ -1,24 +1,27 @@
-export const FakeItems = {
-  pillow: {
-    src: '/fake-items/pillow.png',
+export const FakeItems: FakeItem[] = [
+  {
+    className: 'absolute bottom-[210px] right-[190px]',
+    src: '/fake-items/teddy-bear.png',
     width: 66,
     height: 66,
     alt: 'pillow',
-    description: 'This is just a regular pillow.'
+    description: 'Its a cute teddy bear.'
   },
-  chefKnife: {
-    src: '/fake-items/chef-knife.png',
-    width: 44,
-    height: 44,
+  {
+    className: 'absolute bottom-[265px] left-[30px]',
+    src: '/fake-items/blanket.png',
+    width: 77,
+    height: 77,
     alt: 'chef-knife',
-    description: 'This is just a chef knife.'
-  }
-}
+    description: 'This is just a blanket.'
+  },
+]
 
 export const RealItems: RealItem[] = [
   {
     id: 0,
-    name: 'blueberry', 
+    name: 'blueberry',
+    className: 'absolute bottom-[60px] left-[160px]',
     scr: '/real-items/blueberry.png', 
     width: 28, 
     height: 28, 
@@ -29,10 +32,13 @@ export const RealItems: RealItem[] = [
     conditionalDescription: 'Find the next fruit.',
     type: 'quiz',
     ans: '001',
+    realTarget: 1,
+    prerequisiteTarget: null,
   },
   {
     id: 1,
-    name: 'cherry', 
+    name: 'cherry',
+    className: 'absolute bottom-[120px] right-[150px]',
     scr: '/real-items/cherry.png', 
     width: 28, 
     height: 28, 
@@ -43,10 +49,13 @@ export const RealItems: RealItem[] = [
     conditionalDescription: 'Find the last fruit.',
     type: 'click',
     ans: '',
+    realTarget: 2,
+    prerequisiteTarget: null,
   },
   {
     id: 2,
-    name: 'raspberry', 
+    name: 'raspberry',
+    className: 'absolute top-[150px] left-[200px]',
     scr: '/real-items/raspberry.png', 
     width: 28, 
     height: 28, 
@@ -57,10 +66,13 @@ export const RealItems: RealItem[] = [
     conditionalDescription: 'Time to leave the house.',
     type: 'click',
     ans: '',
+    realTarget: 3,
+    prerequisiteTarget: 1,
   },
   {
     id: 3,
-    name: 'transportation', 
+    name: 'transportation',
+    className: 'absolute top-[150px] right-[220px]',
     scr: '/real-items/transportation.png', 
     width: 44, 
     height: 44, 
@@ -71,5 +83,34 @@ export const RealItems: RealItem[] = [
     conditionalDescription: 'Complete!',
     type: 'click',
     ans: '',
+    realTarget: null,
+    prerequisiteTarget: null,
   },
+]
+
+export const PrerequisiteItems: PrerequisiteItem[] = [
+  {
+    id: 0,
+    name: 'rubber-gloves',
+    className:'absolute bottom-[160px] left-[160px]',
+    scr: '/inventory-items/rubber-gloves.png',
+    width: 44,
+    height: 44,
+    alt: 'rubber glove',
+    isVisible: true,
+    inInventory: false,
+    description: 'These will protect your hands!'
+  },
+  {
+    id: 1,
+    name: 'key',
+    className: 'absolute bottom-[205px] left-[80px]',
+    scr: '/inventory-items/key.png',
+    width: 22,
+    height: 22,
+    alt: 'key',
+    isVisible: false,
+    inInventory: false,
+    description: `You've found the car key!`,
+  }
 ]

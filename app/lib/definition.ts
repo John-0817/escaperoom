@@ -1,4 +1,5 @@
 interface FakeItem {
+  className: string;
   src: string;
   width: number;
   height: number;
@@ -9,6 +10,7 @@ interface FakeItem {
 interface RealItem {
   id: number;
   name: string;
+  className: string;
   scr: string;
   width: number;
   height: number;
@@ -18,24 +20,89 @@ interface RealItem {
   description: string;
   conditionalDescription: string;
   type: 'quiz' | 'click' | 'prerequisite';
-  ans: string
+  ans: string;
+  realTarget: number | null;
+  prerequisiteTarget: number | null;
 }
 
-interface RenderComponentProps {
-  fakeItems: { [key: string]: FakeItem };
-  realItems: RealItem[];
-  showModal: (content: React.ReactNode) => void;
-  closeModal: () => void;
-  updateItem: (id: number, update: Partial<RealItem>) => void;
+interface PrerequisiteItem {
+  id: number;
+  name: string;
+  className: string;
+  scr: string;
+  width: number;
+  height: number;
+  alt: string;
+  isVisible: boolean;
+  inInventory: boolean;
+  description: string;
 }
 
-interface RenderMainPageProps {
-  fakeItems: { [key: string]: FakeItem };
-  initialRealItems: RealItem[];
+interface FakeItemProps{
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+  handleShowModalFake: () => void;
 }
 
-interface ModalProps {
+interface RealItemProps{
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+  handleShowModalReal: () => void;
+}
+
+interface PrerequisiteItemProps{
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+  handleShowModalPrerequisite: () => void;
+}
+
+interface RenderModalProps {
   isModalVisible: boolean;
   modalContent: React.ReactNode;
   closeModal: () => void;
+}
+
+interface RenderMainPageProps {
+  fakeItems: FakeItem[];
+  initialRealItems: RealItem[];
+  initialPrerequisiteItems: PrerequisiteItem[];
+}
+
+interface RenderInventoryProps {
+  inventory: Partial<PrerequisiteItem>[];
+  
+}
+
+interface RenderComponentProps {
+  fakeItems: FakeItem[];
+  realItems: RealItem[];
+  prerequisiteItems: PrerequisiteItem[];
+  showModal: (content: React.ReactNode) => void;
+  closeModal: () => void;
+  updateRealItem: (id: number, update: Partial<RealItem>) => void;
+  updatePrerequisiteItem: (id: number, update: Partial<PrerequisiteItem>) => void;
+  addToInventory: (item: Partial<PrerequisiteItem>) => void;
+}
+
+interface QuizModalProps {
+  content: string;
+  isCorrect: boolean;
+  userAnswer: React.RefObject<HTMLInputElement>;
+  checkAnswer: () => void;
+}
+
+interface ClickModalProps {
+  content: string;
+  showNextItem: () => void;
+}
+
+interface PrerequisiteModalProps {
+  content: string;
+  showNextItem: () => void;
 }

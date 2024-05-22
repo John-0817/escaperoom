@@ -1,4 +1,4 @@
-export default function RenderModal(props: ModalProps) {
+export default function RenderModal(props: RenderModalProps) {
   const {isModalVisible, modalContent, closeModal} = props
 
   return(

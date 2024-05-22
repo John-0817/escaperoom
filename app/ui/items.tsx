@@ -1,28 +1,7 @@
 import Image from 'next/image';
 
-interface FakeProps{
-  src: string;
-  width: number;
-  height: number;
-  alt: string;
-  handleShowModalFake: () => void;
-}
-
-interface RealProps{
-  src: string;
-  width: number;
-  height: number;
-  alt: string;
-  handleShowModalReal: () => void;
-}
-
-export function FakeItem({
-  src,
-  width,
-  height,
-  alt,
-  handleShowModalFake,
-}: FakeProps) {
+export function FakeItem(props: FakeItemProps) {
+  const { src, width, height, alt, handleShowModalFake } = props;
 
   return(
     <button onClick={handleShowModalFake}>
@@ -36,13 +15,8 @@ export function FakeItem({
   )
 }
 
-export function RealItem({
-  src,
-  width,
-  height,
-  alt,
-  handleShowModalReal,
-}: RealProps) {
+export function RealItem(props: RealItemProps) {
+  const { src, width, height, alt, handleShowModalReal } = props;
 
   return(
     <button onClick={handleShowModalReal}>
@@ -55,3 +29,21 @@ export function RealItem({
     </button>
   )
 }
+
+
+export function PrerequisiteItem(props: PrerequisiteItemProps) {
+  const { src, width, height, alt, handleShowModalPrerequisite } = props;
+
+  return(
+    <button onClick={handleShowModalPrerequisite}>
+      <Image 
+        src={src}
+        width={width}
+        height={height}
+        alt={alt}
+      />
+    </button>
+  )
+}
+
+
