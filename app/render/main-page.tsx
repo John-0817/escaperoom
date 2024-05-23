@@ -11,7 +11,7 @@ export default function RenderMainPage(props: RenderMainPageProps) {
   const [modalContent, setModalContent] = useState<React.ReactNode>(null);
   const [realItems, setRealItems] = useState(initialRealItems);
   const [prerequisiteItems, setPrerequisiteItems] = useState(initialPrerequisiteItems);
-  const [inventory, setInventory] = useState<Partial<PrerequisiteItem>[]>(Array(8).fill(null));
+  const [inventory, setInventory] = useState<(Partial<PrerequisiteItem> | null)[]>(Array(8).fill(null));
   const [itemOnHand, setItemOnHand] = useState('');
   
   const showModal = (content: React.ReactNode) => {
@@ -40,6 +40,10 @@ export default function RenderMainPage(props: RenderMainPageProps) {
     );
   };
 
+  const selectItem = (item: string) => {
+    setItemOnHand(item);
+  };
+
   const addToInventory = (item: Partial<PrerequisiteItem>) => {
     setInventory(prevInventory => {
       const newInventory = [...prevInventory];
@@ -51,6 +55,17 @@ export default function RenderMainPage(props: RenderMainPageProps) {
       }
       return newInventory;
     });
+  };
+
+  const removeItemFromInventory = (name: string) => {
+    setInventory(prevInventory => {
+      const updatedInventory = prevInventory.filter(item => item === null || item.name !== name);
+      updatedInventory.push(null);
+
+      return updatedInventory;
+    });
+    console.log(inventory);
+    setItemOnHand('');
   };
   
   return(
@@ -69,10 +84,14 @@ export default function RenderMainPage(props: RenderMainPageProps) {
           closeModal={closeModal}
           updateRealItem={updateRealItem}
           updatePrerequisiteItem={updatePrerequisiteItem}
+          itemOnHand={itemOnHand}
           addToInventory={addToInventory}
+          removeItemFromInventory={removeItemFromInventory}
         />
         <RenderInventory 
           inventory={inventory}
+          itemOnHand={itemOnHand}
+          selectItem={selectItem}
         />
       </div>
     </div>

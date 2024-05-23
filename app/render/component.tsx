@@ -4,7 +4,18 @@ import Image from 'next/image';
 import { RenderQuizModal, RenderClickModal, RenderPrerequisiteModal } from '../ui/modal-content';
 
 export default function RenderComponent(props: RenderComponentProps) {
-  const { fakeItems, realItems, prerequisiteItems, showModal, closeModal, updateRealItem, updatePrerequisiteItem, addToInventory } = props;
+  const {
+    fakeItems,
+    realItems,
+    prerequisiteItems,
+    showModal,
+    closeModal,
+    updateRealItem,
+    updatePrerequisiteItem,
+    itemOnHand,
+    addToInventory,
+    removeItemFromInventory,
+  } = props;
   const userAnswer = useRef<HTMLInputElement>(null);
 
   // Modal preview from fake items
@@ -24,38 +35,57 @@ export default function RenderComponent(props: RenderComponentProps) {
 
   // Modal preview from real items
   const handleShowModalReal = (
-    id: number, 
-    content: string, 
-    type: 'quiz' | 'click' | 'prerequisite', 
-    answer: string, 
+    id: number,
+    content: string,
+    type: 'quiz' | 'click' | 'prerequisite',
+    answer: string,
     isCorrect: boolean,
+    prerequisiteName: string | null,
     realTarget: number | null,
     prerequisiteTarget: number | null,
   ) => {
     const checkAnswer = () => {
-      if(userAnswer.current && userAnswer.current.value === answer) {
+      if (userAnswer.current && userAnswer.current.value === answer) {
         updateRealItem(id, { isCorrect: true });
-        
-        if(realTarget !== null) {
+
+        if (realTarget !== null) {
           updateRealItem(realTarget, { isVisible: true });
         };
-        
-        if(prerequisiteTarget !== null) {
+
+        if (prerequisiteTarget !== null) {
           updatePrerequisiteItem(prerequisiteTarget, { isVisible: true });
         };
       };
-  
+
       closeModal();
     };
+
+    const checkPrerequisite = () => {
+      if (itemOnHand === prerequisiteName) {
+        updateRealItem(id, { isCorrect: true });
+
+        if (realTarget !== null) {
+          updateRealItem(realTarget, { isVisible: true });
+        };
+
+        if (prerequisiteTarget !== null) {
+          updatePrerequisiteItem(prerequisiteTarget, { isVisible: true });
+        };
+
+        removeItemFromInventory(itemOnHand);
+      };
+
+      closeModal();
+    }
 
     const showNextItem = () => {
       updateRealItem(id, { isCorrect: true });
 
-      if(realTarget !== null) {
+      if (realTarget !== null) {
         updateRealItem(realTarget, { isVisible: true });
       };
-      
-      if(prerequisiteTarget !== null) {
+
+      if (prerequisiteTarget !== null) {
         updatePrerequisiteItem(prerequisiteTarget, { isVisible: true });
       };
 
@@ -66,7 +96,7 @@ export default function RenderComponent(props: RenderComponentProps) {
       <>
         {type === 'quiz' && (
           showModal(
-            <RenderQuizModal 
+            <RenderQuizModal
               content={content}
               isCorrect={isCorrect}
               userAnswer={userAnswer}
@@ -76,7 +106,7 @@ export default function RenderComponent(props: RenderComponentProps) {
         )}
         {type === 'click' && (
           showModal(
-            <RenderClickModal 
+            <RenderClickModal
               content={content}
               showNextItem={showNextItem}
             />
@@ -86,7 +116,7 @@ export default function RenderComponent(props: RenderComponentProps) {
           showModal(
             <RenderPrerequisiteModal
               content={content}
-              showNextItem={showNextItem}
+              checkPrerequisite={checkPrerequisite}
             />
           )
         )}
@@ -96,20 +126,20 @@ export default function RenderComponent(props: RenderComponentProps) {
 
   // Modal preview from prerequisite items
   const handleShowModalPrerequisite = (
-    id: number, 
-    name: string, 
-    scr: string, 
-    alt: string, 
+    id: number,
+    name: string,
+    scr: string,
+    alt: string,
     content: string,
-  )  => {
+  ) => {
     const prerequisiteItemSelect = () => {
-      updatePrerequisiteItem(id, {inInventory: true});
-      addToInventory({name: name, scr: scr, alt: alt});
+      updatePrerequisiteItem(id, { inInventory: true });
+      addToInventory({ name: name, scr: scr, alt: alt });
 
       closeModal();
     }
     console.log('1')
-    return(
+    return (
       showModal(
         <div className='flex flex-col items-center'>
           {content}
@@ -124,10 +154,10 @@ export default function RenderComponent(props: RenderComponentProps) {
     )
   }
 
-  return ( 
+  return (
     <div className='relative self-center w-[700px] h-[700px] border'>
       {/* Background */}
-      <Image 
+      <Image
         src={'/living-room.png'}
         layout='fill'
         objectFit='cover'
@@ -138,7 +168,7 @@ export default function RenderComponent(props: RenderComponentProps) {
       {/* Fake Items*/}
       {fakeItems.map((item, index) => (
         <div key={index} className={item.className}>
-          <FakeItem 
+          <FakeItem
             src={item.src}
             width={item.width}
             height={item.height}
@@ -149,36 +179,43 @@ export default function RenderComponent(props: RenderComponentProps) {
       ))}
 
       {/* Real Items*/}
-      {realItems.map((item, index) => (
-        <div key={index} className={item.className}>
-          {item.isVisible && (
-            <RealItem 
-              src={item.scr}
-              width={item.width}
-              height={item.height}
-              alt={item.alt}
-              handleShowModalReal={() =>
-                handleShowModalReal(
-                  item.id,
-                  !item.isCorrect ? item.description : item.conditionalDescription,
-                  item.type,
-                  item.ans,
-                  item.isCorrect,
-                  item.realTarget,
-                  item.prerequisiteTarget
-                )
-              }
-            />
-          )}
+      {realItems.map((item, index) => {
+        const description = (item.type === 'prerequisite' && itemOnHand === item.prerequisiteName) || item.isCorrect
+        ? item.conditionalDescription
+        : item.description;
 
-        </div>
-      ))}
+        return (
+          <div key={index} className={item.className}>
+            {item.isVisible && (
+              <RealItem
+                src={item.scr}
+                width={item.width}
+                height={item.height}
+                alt={item.alt}
+                handleShowModalReal={() =>
+                  handleShowModalReal(
+                    item.id,
+                    description,
+                    item.type,
+                    item.ans,
+                    item.isCorrect,
+                    item.prerequisiteName,
+                    item.realTarget,
+                    item.prerequisiteTarget,
+                  )
+                }
+              />
+            )}
+
+          </div>
+        );
+      })}
 
       {/* Prerequisite Items */}
       {prerequisiteItems.map((item, index) => (
         <div key={index} className={item.className}>
           {!item.inInventory && item.isVisible && (
-            <PrerequisiteItem 
+            <PrerequisiteItem
               src={item.scr}
               width={item.width}
               height={item.height}

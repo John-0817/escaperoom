@@ -21,6 +21,7 @@ interface RealItem {
   conditionalDescription: string;
   type: 'quiz' | 'click' | 'prerequisite';
   ans: string;
+  prerequisiteName: string | null;
   realTarget: number | null;
   prerequisiteTarget: number | null;
 }
@@ -75,8 +76,9 @@ interface RenderMainPageProps {
 }
 
 interface RenderInventoryProps {
-  inventory: Partial<PrerequisiteItem>[];
-  
+  inventory: (Partial<PrerequisiteItem> | null)[];
+  itemOnHand: string;
+  selectItem: (item: string) => void;
 }
 
 interface RenderComponentProps {
@@ -87,7 +89,9 @@ interface RenderComponentProps {
   closeModal: () => void;
   updateRealItem: (id: number, update: Partial<RealItem>) => void;
   updatePrerequisiteItem: (id: number, update: Partial<PrerequisiteItem>) => void;
+  itemOnHand: string;
   addToInventory: (item: Partial<PrerequisiteItem>) => void;
+  removeItemFromInventory: (name: string) => void;
 }
 
 interface QuizModalProps {
@@ -104,5 +108,5 @@ interface ClickModalProps {
 
 interface PrerequisiteModalProps {
   content: string;
-  showNextItem: () => void;
+  checkPrerequisite: () => void;
 }

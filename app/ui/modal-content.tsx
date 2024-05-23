@@ -34,13 +34,13 @@ export function RenderClickModal (props: ClickModalProps) {
 }
 
 export function RenderPrerequisiteModal (props: PrerequisiteModalProps) {
-  const { content, showNextItem } = props;
+  const { content, checkPrerequisite } = props;
   
     return(
       <div className='flex flex-col items-center'>
         {content}
         <button
-          onClick={showNextItem}
+          onClick={checkPrerequisite}
           className='bg-blue-500 text-white mt-4 px-2 py-1 rounded'
         >
           Okay
