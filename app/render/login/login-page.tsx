@@ -66,7 +66,7 @@ export default function RenderLoginForm() {
             Log In
           </button>
           <div className='flex items-baseline justify-center'>
-            <p>Don't have an account?</p>
+            <p>Don&apos;t have an account?</p>
             <Link 
               href={'/sign-up'} 
               className='text-sm font-semibold ml-1 leading-none'
