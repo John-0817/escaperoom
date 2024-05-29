@@ -23,13 +23,13 @@ export default function RenderInventory(props: RenderInventoryProps) {
               )
             }
           >
-            {item && item.scr && item.alt ? (
+            {item && item.src ? (
               <button onClick={() => selectItem(item.name ? item.name : '')}>
                 <Image 
-                  src={item.scr}
+                  src={item.src}
                   width={44}
                   height={44}
-                  alt={item.alt}
+                  alt=''
                 />
               </button>
             ) : (
