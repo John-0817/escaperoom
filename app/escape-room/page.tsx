@@ -1,5 +1,5 @@
 import { FakeItems,  RealItems, PrerequisiteItems } from '../lib/asset'
-import RenderMainPage from '../render/main-page'
+import RenderMainPage from '../render/escape-room/main-page'
 
 export default function page() {
   const fakeItems = FakeItems;

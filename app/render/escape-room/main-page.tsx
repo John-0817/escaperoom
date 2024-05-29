@@ -25,11 +25,11 @@ export default function RenderMainPage(props: RenderMainPageProps) {
   };
 
   const updateRealItem = (id: number, update: Partial<RealItem>) => {
-    setRealItems(prevItems => 
-      prevItems.map(item => 
-        item.id === id ? { ...item, ...update } : item
-      )
-    );
+    // setRealItems(prevItems => 
+    //   prevItems.map(item => 
+    //     item.id === id ? { ...item, ...update } : item
+    //   )
+    // );
   };
 
   const updatePrerequisiteItem = (id: number, update: Partial<PrerequisiteItem>) => {

@@ -1,42 +1,59 @@
+// Escape Room Interface
+
+  // Fake Item
 interface FakeItem {
-  className: string;
   src: string;
+  dx: number;
+  dy: number;
   width: number;
   height: number;
-  alt: string;
   description: string;
 }
 
-interface RealItem {
+  // Real Item (Base Case)
+interface BaseItem {
   id: number;
   name: string;
-  className: string;
-  scr: string;
+  src: string;
+  dx: number;
+  dy: number;
   width: number;
   height: number;
-  alt: string;
   isVisible: boolean;
   isCorrect: boolean;
-  description: string;
-  conditionalDescription: string;
-  type: 'quiz' | 'click' | 'prerequisite';
-  ans: string;
-  prerequisiteName: string | null;
-  realTarget: number | null;
-  prerequisiteTarget: number | null;
+  hint: string;
+  completionMessage: string;
+  unlockedPrerequisite: number | null;
 }
+  // Real Item (Type: Quiz)
+interface Quiz extends BaseItem {
+  type: 'quiz';
+  answer: string;
+}
+  // Real Item (Type: Click)
+interface Click extends BaseItem {
+  type: 'click';
+}
+  // Real Item (Type: Prerequisite)
+interface Prerequisite extends BaseItem {
+  type: 'prerequisite';
+  prerequisiteItem: string;
+}
+  // Real Item (Integrate)
+type RealItem = Quiz | Click | Prerequisite;
 
+  // Prerequisite Item
 interface PrerequisiteItem {
   id: number;
   name: string;
-  className: string;
-  scr: string;
+  src: string;
+  dx: number;
+  dy: number;
   width: number;
   height: number;
-  alt: string;
+  description: string;
   isVisible: boolean;
   inInventory: boolean;
-  description: string;
 }
 
 interface FakeItemProps{
@@ -109,4 +126,10 @@ interface ClickModalProps {
 interface PrerequisiteModalProps {
   content: string;
   checkPrerequisite: () => void;
+}
+
+// Create Room Interface
+
+interface CreateRoomProps {
+  
 }
