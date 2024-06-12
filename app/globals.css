@@ -12,3 +12,16 @@ body {
     text-wrap: balance;
   }
 }
+
+.siren {
+  animation: sirenBackground 1.5s infinite;
+}
+
+@keyframes sirenBackground {
+  0% { background-color: transparent; }
+  50% { 
+    background-color: red; 
+    opacity: 0.5; 
+  }
+  100% { background-color: transparent; }
+}

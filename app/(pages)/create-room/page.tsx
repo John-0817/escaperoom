@@ -1,4 +1,4 @@
-import RenderCreatePage from '../render/create-room/create-page';
+import RenderCreatePage from '@/app/components/create-room/create-page';
 
 export default function page() {
   const getBackground = {};

@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import React, { useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/app/lib/firebase/firebaseConfig';
 
@@ -9,6 +10,7 @@ export default function RenderLoginForm() {
   const email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,6 +19,8 @@ export default function RenderLoginForm() {
       try {
         await signInWithEmailAndPassword(auth, email.current.value, password.current.value)
         setError(null);
+        
+        router.push('/playground');
       } catch (error) {
         setError('Failed to log in. Please check your email and password.');
       }
@@ -29,6 +33,7 @@ export default function RenderLoginForm() {
     <form onSubmit={handleLogin} className='w-[300px] h-[500px] flex flex-col px-4 py-2 text-xs font-medium border shadow-lg rounded-lg'>
       <h1 className='my-8 text-xl font-black text-center'>Login</h1>
       <div className='flex flex-col'>
+        {/* Email */}
         <label 
           htmlFor="email" 
           className='pl-1 text-sm font-bold'
@@ -43,6 +48,7 @@ export default function RenderLoginForm() {
         />
       </div>
       <div className=' flex flex-col mt-1'>
+        {/* Password */}
         <label 
           htmlFor="password" 
           className='pl-1 text-sm font-bold'
@@ -56,6 +62,7 @@ export default function RenderLoginForm() {
           className='my-1 pl-2 leading-7 bg-gray-100 rounded-xl'
         />
       </div>
+      {/* Message Output */}
       {error && <p className='mt-1 text-red-500'>{error}</p>}
       <div className='grow place-content-end'>
         <div className='flex flex-col mb-8 justify-center gap-4'>
@@ -68,10 +75,10 @@ export default function RenderLoginForm() {
           <div className='flex items-baseline justify-center'>
             <p>Don&apos;t have an account?</p>
             <Link 
-              href={'/sign-up'} 
+              href={'/register'} 
               className='text-sm font-semibold ml-1 leading-none'
             >
-              Sign up
+              Register
             </Link>
             <p className='ml-1 leading-none'>now!</p>
           </div>

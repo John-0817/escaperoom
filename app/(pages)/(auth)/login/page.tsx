@@ -1,4 +1,4 @@
-import RenderLoginForm from '@/app/render/login/login-page';
+import RenderLoginForm from '@/app/components/auth/LoginForm'
 
 export default function page() {
   return(

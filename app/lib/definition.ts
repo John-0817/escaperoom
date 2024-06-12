@@ -51,82 +51,77 @@ interface PrerequisiteItem {
   dy: number;
   width: number;
   height: number;
-  description: string;
+  hint: string;
   isVisible: boolean;
   inInventory: boolean;
 }
 
-interface FakeItemProps{
-  src: string;
-  width: number;
-  height: number;
-  alt: string;
-  handleShowModalFake: () => void;
-}
-
-interface RealItemProps{
-  src: string;
-  width: number;
-  height: number;
-  alt: string;
-  handleShowModalReal: () => void;
-}
-
-interface PrerequisiteItemProps{
-  src: string;
-  width: number;
-  height: number;
-  alt: string;
-  handleShowModalPrerequisite: () => void;
-}
-
-interface RenderModalProps {
-  isModalVisible: boolean;
-  modalContent: React.ReactNode;
-  closeModal: () => void;
-}
 
 interface RenderMainPageProps {
   fakeItems: FakeItem[];
-  initialRealItems: RealItem[];
-  initialPrerequisiteItems: PrerequisiteItem[];
-}
-
-interface RenderInventoryProps {
-  inventory: (Partial<PrerequisiteItem> | null)[];
-  itemOnHand: string;
-  selectItem: (item: string) => void;
+  realItems: RealItem[];
+  prerequisiteItems: PrerequisiteItem[];
 }
 
 interface RenderComponentProps {
   fakeItems: FakeItem[];
-  realItems: RealItem[];
-  prerequisiteItems: PrerequisiteItem[];
-  showModal: (content: React.ReactNode) => void;
-  closeModal: () => void;
-  updateRealItem: (id: number, update: Partial<RealItem>) => void;
-  updatePrerequisiteItem: (id: number, update: Partial<PrerequisiteItem>) => void;
+  initialRealItems: RealItem[];
+  initialPrerequisiteItems: PrerequisiteItem[];
+}
+  // Custom Timer State
+interface TimerContextProps {
+  time: number;
+  sirenOn: boolean;
+  formatTime: (time:number) => string;
+  startTimer: () => void;
+  timerSwitch: () => void;
+}
+  // Custom Inventory State
+interface InventoryContextProps {
+  inventory: (Partial<PrerequisiteItem> | null)[];
   itemOnHand: string;
   addToInventory: (item: Partial<PrerequisiteItem>) => void;
   removeItemFromInventory: (name: string) => void;
+  selectItem: (item: string) => void;
+}
+  // Custom Modal State
+interface ModalContextProps {
+  isModalVisible: boolean;
+  modalContent: React.ReactNode;
+  showModal: (content: React.ReactNode) => void;
+  closeModal: () => void;
+}
+  // Modal Content - Real Item (Quiz)
+interface QuizModalProps { 
+  item: Quiz;
+  isLast: boolean;
+  setGameComplete: React.Dispatch<React.SetStateAction<boolean>>
+  setRealItems: React.Dispatch<React.SetStateAction<RealItem[]>>;
+  setPrerequisiteItems: React.Dispatch<React.SetStateAction<PrerequisiteItem[]>>;
+}
+// Modal Content - Real Item (Click)
+interface ClickModalProps { 
+  item: Click;
+  isLast: boolean;
+  setGameComplete: React.Dispatch<React.SetStateAction<boolean>>
+  setRealItems: React.Dispatch<React.SetStateAction<RealItem[]>>;
+  setPrerequisiteItems: React.Dispatch<React.SetStateAction<PrerequisiteItem[]>>;
+}
+// Modal Content - Real Item (Prerequisite)
+interface PrerequisiteModalProps { 
+  item: Prerequisite;
+  isLast: boolean;
+  setGameComplete: React.Dispatch<React.SetStateAction<boolean>>
+  setRealItems: React.Dispatch<React.SetStateAction<RealItem[]>>;
+  setPrerequisiteItems: React.Dispatch<React.SetStateAction<PrerequisiteItem[]>>;
+}
+// Modal Content - Prerequisite Item
+interface PrerequisiteItemProps {
+  item: PrerequisiteItem;
+  setPrerequisiteItems: React.Dispatch<React.SetStateAction<PrerequisiteItem[]>>;
 }
 
-interface QuizModalProps {
-  content: string;
-  isCorrect: boolean;
-  userAnswer: React.RefObject<HTMLInputElement>;
-  checkAnswer: () => void;
-}
 
-interface ClickModalProps {
-  content: string;
-  showNextItem: () => void;
-}
-
-interface PrerequisiteModalProps {
-  content: string;
-  checkPrerequisite: () => void;
-}
 
 // Create Room Interface
 

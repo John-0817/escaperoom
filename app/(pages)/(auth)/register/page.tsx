@@ -1,10 +1,9 @@
-import RenderSignUpForm from '@/app/render/sign-up/signup-page';
-
+import RenderRegisterForm from '@/app/components/auth/RegisterForm'
 
 export default function page() {
   return(
     <main className='grow flex flex-col justify-center items-center'>
-      <RenderSignUpForm />
+      <RenderRegisterForm />
     </main>
   )
 }

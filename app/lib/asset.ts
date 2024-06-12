@@ -92,7 +92,7 @@ export const PrerequisiteItems: PrerequisiteItem[] = [
     dy: 490,
     width: 44,
     height: 44,
-    description: 'These will protect your hands!',
+    hint: 'These will protect your hands!',
     isVisible: true,
     inInventory: false,
   },
@@ -104,7 +104,7 @@ export const PrerequisiteItems: PrerequisiteItem[] = [
     dy: 472,
     width: 22,
     height: 22,
-    description: `You've found the car key!`,
+    hint: `You've found the car key!`,
     isVisible: false,
     inInventory: false,
   }
