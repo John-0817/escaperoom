@@ -14,3 +14,6 @@ This project is a simple escape room game developed using Next.js and TypeScript
 
 - Frontend: Next.js, React, TypeScript
 - Backend: Firebase for user authentication and Firestore for data management
+
+## Example
+![Escape Room Game Demo](https://github.com/John-0817/escaperoom/blob/main/example.gif)
